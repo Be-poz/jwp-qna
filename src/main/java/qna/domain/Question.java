@@ -60,6 +60,15 @@ public class Question extends BaseTimeEntity {
         }
     }
 
+    public void addAnswer(Answer answer) {
+        this.answers.add(answer);
+        answer.assignQuestion(this);
+    }
+
+    public Long id() {
+        return this.id;
+    }
+
     public List<Answer> answers() {
         return this.answers;
     }
@@ -79,5 +88,9 @@ public class Question extends BaseTimeEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id);
+    }
+
+    public boolean isDeleted() {
+        return this.deleted;
     }
 }

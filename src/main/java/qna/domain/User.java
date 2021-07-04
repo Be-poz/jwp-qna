@@ -12,8 +12,6 @@ import java.util.List;
 import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class User extends BaseTimeEntity {
     public static final GuestUser GUEST_USER = new GuestUser();
@@ -83,15 +81,8 @@ public class User extends BaseTimeEntity {
         return false;
     }
 
-    @Override
-    public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", userId='" + userId + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", email='" + email + '\'' +
-                '}';
+    public Long id() {
+        return this.id;
     }
 
     private static class GuestUser extends User {
