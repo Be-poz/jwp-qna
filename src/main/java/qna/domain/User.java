@@ -1,9 +1,7 @@
 package qna.domain;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 import qna.exception.UnAuthorizedException;
 
 import javax.persistence.*;
@@ -22,16 +20,21 @@ public class User extends BaseTimeEntity {
 
     @Column(unique = true, nullable = false)
     private String userId;
+
     @Column(nullable = false)
     private String password;
+
     @Column(nullable = false)
     private String name;
+
     private String email;
 
     @OneToMany(mappedBy = "writer")
     private List<Answer> answers = new ArrayList<>();
-    @OneToMany(mappedBy = "writer")
+
+    @OneToMany(mappedBy = "writer", cascade = CascadeType.PERSIST)
     private List<Question> questions = new ArrayList<>();
+
     @OneToMany(mappedBy = "deleteUser")
     private List<DeleteHistory> deleteHistories = new ArrayList<>();
 
@@ -75,6 +78,11 @@ public class User extends BaseTimeEntity {
 
         return name.equals(target.name) &&
                 email.equals(target.email);
+    }
+
+    public void addQuestion(Question question) {
+        this.questions.add(question);
+        question.assignUser(this);
     }
 
     public boolean isGuestUser() {

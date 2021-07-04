@@ -1,9 +1,7 @@
 package qna.domain;
 
 import lombok.AccessLevel;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -53,6 +51,10 @@ public class Question extends BaseTimeEntity {
         return this.writer.equals(writer);
     }
 
+    public boolean isDeleted() {
+        return this.deleted;
+    }
+
     public void deleteWithAnswers() {
         this.deleted = true;
         for (Answer answer : answers) {
@@ -73,6 +75,10 @@ public class Question extends BaseTimeEntity {
         return this.answers;
     }
 
+    public void assignUser(User user) {
+        this.writer = user;
+    }
+
     public User writer() {
         return this.writer;
     }
@@ -88,9 +94,5 @@ public class Question extends BaseTimeEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public boolean isDeleted() {
-        return this.deleted;
     }
 }
