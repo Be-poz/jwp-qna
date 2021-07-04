@@ -14,13 +14,13 @@ import java.util.Objects;
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Answer {
+public class Answer extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")
     private User writer;
 
@@ -31,6 +31,7 @@ public class Answer {
     @Lob
     private String contents;
 
+    @Column(nullable = false)
     private boolean deleted = false;
 
     public Answer(User writer, Question question, String contents) {

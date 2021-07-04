@@ -6,26 +6,34 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Question {
+public class Question extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(nullable = false)
     private String title;
 
     @Lob
     private String contents;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "question")
+    private List<Answer> answers = new ArrayList<>();
+
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer_id")
     private User writer;
 
+    @Column(nullable = false)
     private boolean deleted = false;
 
     public Question(String title, String contents) {
