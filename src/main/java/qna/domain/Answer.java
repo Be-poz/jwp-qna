@@ -58,12 +58,20 @@ public class Answer extends BaseTimeEntity {
         this.deleted = true;
     }
 
+    public boolean isDeleted() {
+        return this.deleted;
+    }
+
     public Long id() {
         return this.id;
     }
 
     public User writer() {
         return this.writer;
+    }
+
+    public void assignQuestion(Question question) {
+        this.question = question;
     }
 
     @Override
@@ -77,13 +85,5 @@ public class Answer extends BaseTimeEntity {
     @Override
     public int hashCode() {
         return Objects.hash(id);
-    }
-
-    public void assignQuestion(Question question) {
-        this.question = question;
-    }
-
-    public boolean isDeleted() {
-        return this.deleted;
     }
 }

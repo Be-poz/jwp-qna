@@ -28,11 +28,11 @@ public class User extends BaseTimeEntity {
     private String name;
     private String email;
 
-    @OneToMany(mappedBy = "writer_id")
+    @OneToMany(mappedBy = "writer")
     private List<Answer> answers = new ArrayList<>();
     @OneToMany(mappedBy = "writer")
     private List<Question> questions = new ArrayList<>();
-    @OneToMany(mappedBy = "deleted_by_id")
+    @OneToMany(mappedBy = "deleteUser")
     private List<DeleteHistory> deleteHistories = new ArrayList<>();
 
     public User(String userId, String password, String name, String email) {
