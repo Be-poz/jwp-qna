@@ -28,13 +28,13 @@ public class DeleteHistory {
     @JoinColumn(name = "deleted_by_id")
     private User deleteUser;
 
-    private LocalDateTime createDate = LocalDateTime.now();
+    private LocalDateTime createDate;
 
-    public DeleteHistory(ContentType contentType, Long contentId, User deleteUser, LocalDateTime createDate) {
+    public DeleteHistory(ContentType contentType, Long contentId, User deleteUser) {
         this.contentType = contentType;
         this.contentId = contentId;
         this.deleteUser = deleteUser;
-        this.createDate = createDate;
+        this.createDate = LocalDateTime.now();
     }
 
     @Override
@@ -42,25 +42,11 @@ public class DeleteHistory {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         DeleteHistory that = (DeleteHistory) o;
-        return Objects.equals(id, that.id) &&
-                contentType == that.contentType &&
-                Objects.equals(contentId, that.contentId) &&
-                Objects.equals(deleteUser, that.deleteUser);
+        return id.equals(that.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, contentType, contentId, deleteUser);
-    }
-
-    @Override
-    public String toString() {
-        return "DeleteHistory{" +
-                "id=" + id +
-                ", contentType=" + contentType +
-                ", contentId=" + contentId +
-                ", deletedById=" + deleteUser.getId() +
-                ", createDate=" + createDate +
-                '}';
+        return Objects.hash(id);
     }
 }

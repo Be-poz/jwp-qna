@@ -6,13 +6,11 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Entity
-@Getter
-@Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Question extends BaseTimeEntity {
 
@@ -55,14 +53,31 @@ public class Question extends BaseTimeEntity {
         return this.writer.equals(writer);
     }
 
+    public void deleteWithAnswers() {
+        this.deleted = true;
+        for (Answer answer : answers) {
+            answer.delete();
+        }
+    }
+
+    public List<Answer> answers() {
+        return this.answers;
+    }
+
+    public User writer() {
+        return this.writer;
+    }
+
     @Override
-    public String toString() {
-        return "Question{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", contents='" + contents + '\'' +
-                ", writerId=" + writer.getId() +
-                ", deleted=" + deleted +
-                '}';
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Question question = (Question) o;
+        return id.equals(question.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }
