@@ -82,7 +82,6 @@ public class User extends BaseTimeEntity {
 
     public void addQuestion(Question question) {
         this.questions.add(question);
-        question.assignUser(this);
     }
 
     public boolean isGuestUser() {

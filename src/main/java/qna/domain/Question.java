@@ -44,6 +44,7 @@ public class Question extends BaseTimeEntity {
 
     public Question writeBy(User writer) {
         this.writer = writer;
+        writer.addQuestion(this);
         return this;
     }
 
@@ -64,7 +65,6 @@ public class Question extends BaseTimeEntity {
 
     public void addAnswer(Answer answer) {
         this.answers.add(answer);
-        answer.assignQuestion(this);
     }
 
     public Long id() {

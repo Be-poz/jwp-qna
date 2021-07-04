@@ -44,6 +44,7 @@ public class Answer extends BaseTimeEntity {
         if (Objects.isNull(question)) {
             throw new NotFoundException();
         }
+        question.addAnswer(this);
 
         this.writer = writer;
         this.question = question;
@@ -68,10 +69,6 @@ public class Answer extends BaseTimeEntity {
 
     public User writer() {
         return this.writer;
-    }
-
-    public void assignQuestion(Question question) {
-        this.question = question;
     }
 
     @Override
