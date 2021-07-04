@@ -9,8 +9,7 @@ import java.util.List;
 import java.util.Optional;
 
 public interface QuestionRepository extends JpaRepository<Question, Long> {
-    List<Question> findByDeletedFalse();
 
     @Query("select q from Question q join fetch q.answers where q.id =:id")
-    Optional<Question> findByIdAndDeletedFalse(@Param("id") Long questionId);
+    Optional<Question> findByIdAndDeletedFalseWithAnswers(@Param("id") Long questionId);
 }
